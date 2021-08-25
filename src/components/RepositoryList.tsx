@@ -3,9 +3,14 @@ import { useState, useEffect } from 'react';
 import { RepositoryItem } from "./RepositoryItem";
 import '../styles/repositories.scss';
 
+interface Repository{
+    name: string; 
+    description: string;
+    html_url: string;
+};
 
-export function RepositoryList() {
-    const [repositories, setRepositories] = useState([]); //Estado que vai armazenar a lista de repositorios, setRepositories altera o valor de repositories 
+export function RepositoryList() {                                              
+    const [repositories, setRepositories] = useState<Repository[]>([]); //Estado que vai armazenar a lista de repositorios, setRepositories altera o valor de repositories, <Repository[]>(Generic)
     
     useEffect(() => {
         fetch('https://api.github.com/users/GustavoGJesus/repos').then(response => response.json())
@@ -22,5 +27,5 @@ export function RepositoryList() {
                 })}
             </ul>
         </section>
-    )
+    );
 }
