@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react';
 import { RepositoryItem } from "./RepositoryItem";
-import '../styles/repositories.scss'
+import '../styles/repositories.scss';
+//import { response } from 'express';
+
 
 const repository = {
     name: 'unform', 
@@ -8,6 +11,13 @@ const repository = {
 }
 
 export function RepositoryList() {
+    const [repositories, setRepositories] = useState([]); //Estado que vai armazenar a lista de repositorios, setRepositories altera o valor de repositories 
+    
+    useEffect(() => {
+        fetch('https://api.github.com/users/GustavoGJesus/repos').then(response => response.json())
+        .then(data => setRepositories(data))
+    }, []);
+
     return(
         <section className="repository-list">
             <h1>Lista de Repositórios</h1>
